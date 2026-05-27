@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scopeworks – Verktyg</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;900&display=swap');
+
+:root{
+  --bg:#020504;
+  --panel:#0b1110;
+  --stroke:#2e554b;
+  --green:#55e6c1;
+  --green2:#16b894;
+  --green3:rgba(85,230,193,.08);
+  --red:#ff5c5c;
+  --white:#f7fbfa;
+  --muted:#9db1ab;
+  --soft:#d9e7e3;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(85,230,193,.18), transparent 38%),
+    linear-gradient(180deg,#050b09,#020504);
+  color:var(--white);
+  font-family:'Syne', Arial, sans-serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:40px 24px;
+}
+
+.wrap{
+  width:min(900px,100%);
+}
+
+/* ── Header ── */
+.header{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-bottom:56px;
+}
+
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.brand-name{
+  font-size:42px;
+  font-weight:900;
+  letter-spacing:-.5px;
+  color:var(--white);
+}
+
+.brand-sub{
+  font-size:13px;
+  color:var(--muted);
+  font-family:'DM Mono', monospace;
+  font-weight:400;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+/* ── Section title ── */
+.section-label{
+  font-family:'DM Mono', monospace;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--green2);
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.section-label::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--stroke);
+}
+
+/* ── Cards grid ── */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+  gap:16px;
+}
+
+.card{
+  position:relative;
+  background:linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+  border:1px solid rgba(85,230,193,.22);
+  border-radius:14px;
+  padding:28px 26px;
+  text-decoration:none;
+  color:var(--white);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  transition:border-color .2s, transform .18s, box-shadow .2s;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+  overflow:hidden;
+}
+
+.card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:14px;
+  background:radial-gradient(circle at 20% 0%, rgba(85,230,193,.10), transparent 60%);
+  opacity:0;
+  transition:opacity .25s;
+}
+
+.card:hover{
+  border-color:var(--green);
+  transform:translateY(-3px);
+  box-shadow:0 28px 70px rgba(0,0,0,.4), 0 0 30px rgba(85,230,193,.08);
+}
+
+.card:hover::before{
+  opacity:1;
+}
+
+.card-title{
+  font-size:19px;
+  font-weight:900;
+  letter-spacing:-.3px;
+  color:var(--white);
+}
+
+.card-desc{
+  font-size:14px;
+  color:var(--muted);
+  font-family:'DM Mono', monospace;
+  font-weight:400;
+  line-height:1.55;
+}
+
+.card-arrow{
+  margin-top:auto;
+  padding-top:16px;
+  font-size:13px;
+  font-family:'DM Mono', monospace;
+  color:var(--green);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  opacity:.7;
+  transition:opacity .2s, gap .2s;
+}
+
+.card:hover .card-arrow{
+  opacity:1;
+  gap:10px;
+}
+
+/* ── Footer ── */
+.footer{
+  margin-top:52px;
+  text-align:center;
+  font-family:'DM Mono', monospace;
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:.05em;
+  opacity:.6;
+}
+
+@media(max-width:500px){
+  .header{flex-direction:column; align-items:flex-start; gap:14px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="header">
+    <div class="brand">
+      <div class="brand-name">Scopeworks</div>
+      <div class="brand-sub">Verktyg</div>
+    </div>
+  </header>
+
+  <div class="section-label">Tillgängliga verktyg</div>
+
+  <div class="cards">
+
+    <a class="card" href="roi-calc.html">
+      <div class="card-title">ROI-kalkyl</div>
+      <div class="card-desc">Räkna ut frigjord tid, scanning-potential och värde av ökad träffsäkerhet.</div>
+      <div class="card-arrow">Öppna verktyget →</div>
+    </a>
+
+    <a class="card" href="slide4.html">
+      <div class="card-title">Investering vs Risk</div>
+      <div class="card-desc">Väg investeringskostnad mot operativ risk och se break-even i realtid.</div>
+      <div class="card-arrow">Öppna verktyget →</div>
+    </a>
+
+  </div>
+
+  <div class="footer">Scopeworks – Mer träff. Mindre tid. Högre effekt.</div>
+
+</div>
+</body>
+</html>
