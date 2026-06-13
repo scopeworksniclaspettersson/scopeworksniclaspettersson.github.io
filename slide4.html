@@ -45,6 +45,12 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 .icard{background:var(--navy3);border:1.5px solid var(--border);border-radius:10px;padding:12px 13px}
 .icard.sw{background:rgba(0,200,180,.07);border-color:rgba(0,200,180,.28)}
 .icard.lic{background:rgba(255,193,7,.05);border-color:rgba(255,193,7,.25)}
+.icard.comp{background:rgba(255,80,80,.06);border-color:rgba(255,100,80,.28)}
+.icard.comp label{color:rgba(255,140,120,.9)}
+.icard.comp .inp-row input{border-color:rgba(255,100,80,.3)}
+.icard.comp .inp-unit{color:rgba(255,140,120,.8)}
+.icard.comp .slider-fill{background:#ff6450}
+.icard.comp .slider::-webkit-slider-thumb{background:#ff6450}
 .icard label{display:block;font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:8px;line-height:1.4}
 .icard.sw label{color:var(--teal)}
 .icard.lic label{color:#fbbf24}
@@ -81,23 +87,22 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 .scard-sub{font-size:10px;margin-top:5px;color:rgba(255,255,255,.75);line-height:1.5}
  
 /* CHART */
-.chart-wrap{background:var(--navy2);border:1.5px solid var(--border);border-radius:16px;padding:28px 32px 24px;margin-bottom:18px}
-.chart-outer{display:flex;gap:0;align-items:stretch}
-.chart-y-axis{display:none}
+.chart-wrap{background:var(--navy2);border:1.5px solid var(--border);border-radius:16px;padding:28px 32px 20px;margin-bottom:18px}
+.chart-inner{display:flex;align-items:flex-end;gap:0;height:200px}
+.chart-y-axis{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;padding-bottom:36px;min-width:80px;padding-right:16px;height:100%}
 .chart-y-axis span{font-size:11px;color:rgba(255,255,255,.28);font-weight:500}
-.chart-plot{flex:1;position:relative}
-.chart-grid{position:absolute;inset:0 0 0 0;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
-.chart-grid div{border-top:1px solid rgba(255,255,255,.06);width:100%}
-.bars-row{display:flex;align-items:flex-end;justify-content:center;gap:80px;height:180px;position:relative;z-index:2}
-.zero-line{border-top:2px solid rgba(255,255,255,.2);margin-top:6px}
-.bar-wrap{display:flex;flex-direction:column;align-items:center}
-.bar{width:130px;border-radius:8px 8px 0 0;position:relative;transition:height .6s cubic-bezier(.4,0,.2,1);min-height:3px}
+.chart-plot{flex:1;position:relative;height:100%}
+.chart-hlines{position:absolute;left:0;right:0;top:0;bottom:36px;display:flex;flex-direction:column;justify-content:space-between}
+.chart-hlines div{border-top:1px solid rgba(255,255,255,.05)}
+.bars-area{position:absolute;left:0;right:0;bottom:36px;top:0;display:flex;align-items:flex-end;justify-content:center;gap:80px}
+.bar-wrap{display:flex;flex-direction:column;align-items:center;gap:0}
+.bar{width:130px;border-radius:8px 8px 0 0;position:relative;transition:height .6s cubic-bezier(.4,0,.2,1);min-height:4px}
 .bar.b-today{background:linear-gradient(180deg,#fca5a5 0%,#ef4444 100%)}
 .bar.b-sw{background:linear-gradient(180deg,#5eead4 0%,#00b4c8 100%)}
 .bar-top-label{position:absolute;top:-28px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:800;white-space:nowrap;letter-spacing:-.01em}
 .b-today .bar-top-label{color:#fca5a5}
 .b-sw .bar-top-label{color:var(--teal2)}
-.bar-bot-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.9);margin-top:10px;text-align:center;line-height:1.4}
+.bar-bot-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.9);margin-top:12px;text-align:center;line-height:1.4}
  
 /* BREAKDOWN */
 .breakdown{background:var(--navy3);border:1.5px solid var(--border);border-radius:12px;padding:16px 22px;margin-bottom:18px}
@@ -143,8 +148,10 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
  
 <!-- SECTION HEADER -->
 <div class="sec-head">
+<div class="num-badge">4</div>
 <div class="sec-title">
 <h2>Investering vs Risk</h2>
+<p>Se din potentiella lönsamhet per månad</p>
 </div>
 </div>
  
@@ -208,6 +215,19 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 </div>
 </div>
  
+<div class="icard comp">
+<label>Nuvarande licens / system</label>
+<div class="inp-row">
+<input type="number" id="compLic" value="4997" min="0" max="99999" step="100"
+oninput="syncSlider(this,'sl_complic');calc()">
+<span class="inp-unit">kr</span>
+</div>
+<div class="slider-wrap"><div class="slider-fill" id="fill_complic"></div>
+<input class="slider" type="range" id="sl_complic" min="0" max="20000" step="100" value="4997"
+oninput="syncNum(this,'compLic');calc()">
+</div>
+</div>
+ 
 </div>
 </div>
  
@@ -232,7 +252,7 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
  
 <!-- CHART -->
 <div class="chart-wrap">
-<div class="chart-outer">
+<div class="chart-inner">
 <div class="chart-y-axis">
 <span id="y4">—</span>
 <span id="y3">—</span>
@@ -241,25 +261,22 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 <span>0 kr</span>
 </div>
 <div class="chart-plot">
-<div class="chart-grid">
+<div class="chart-hlines">
 <div></div><div></div><div></div><div></div><div></div>
 </div>
-<div class="bars-row">
+<div class="bars-area">
 <div class="bar-wrap">
 <div class="bar b-today" id="bar_today" style="height:80px">
 <div class="bar-top-label" id="bar_today_lbl">—</div>
 </div>
+<div class="bar-bot-label">Er kostnad idag</div>
 </div>
 <div class="bar-wrap">
 <div class="bar b-sw" id="bar_sw" style="height:40px">
 <div class="bar-top-label" id="bar_sw_lbl">—</div>
 </div>
+<div class="bar-bot-label">Scopeworks<br>provision + licens</div>
 </div>
-</div>
-<div class="zero-line"></div>
-<div style="display:flex;justify-content:center;gap:80px;margin-top:10px">
-<div class="bar-bot-label" style="width:130px;text-align:center">Er kostnad idag</div>
-<div class="bar-bot-label" style="width:130px;text-align:center">Scopeworks<br>provision + licens</div>
 </div>
 </div>
 </div>
@@ -312,7 +329,7 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
  
 </div>
 <script>
-const CHART_H = 175;
+const CHART_H = 160;
  
 function fmtKr(n){return Math.round(n).toLocaleString('sv-SE')+' kr'}
 function fmtN(n,dec){if(dec!==undefined)return parseFloat(n).toFixed(dec);return Math.round(n).toLocaleString('sv-SE')}
@@ -325,7 +342,7 @@ const fill=document.getElementById(sl.id.replace('sl_','fill_'));
 if(fill)fill.style.width=pct+'%';
 }
 function initFills(){
-['sl_fines','sl_pay','sl_fee','sl_sw','sl_lic'].forEach(id=>{
+['sl_fines','sl_pay','sl_fee','sl_sw','sl_lic','sl_complic'].forEach(id=>{
 const sl=document.getElementById(id);if(sl)updateFill(sl);
 });
 }
@@ -336,6 +353,7 @@ const payRate = Math.min(100, Math.max(0, parseFloat(document.getElementById('pa
 const currentFee = Math.max(0, parseFloat(document.getElementById('currentFee').value)||0);
 const swFee = Math.max(1, parseFloat(document.getElementById('swFee').value)||25);
 const licenseFee = Math.max(0, parseFloat(document.getElementById('licenseFee').value)||0);
+const compLic = Math.max(0, parseFloat(document.getElementById('compLic').value)||0);
  
 // Core numbers
 const paidPerDay = finesPerDay * payRate; // reglerade / dag
@@ -343,14 +361,14 @@ const paidPerMonth = paidPerDay * 30; // reglerade / månad
 const unpaidPerDay = finesPerDay * (1 - payRate); // ej reglerade / dag
  
 // Costs
-const todayCostMonth = finesPerDay * currentFee * 30; // vad de betalar idag/mån
+const todayCostMonth = (finesPerDay * currentFee * 30) + compLic; // rörligt + fast licens
 const swProvision = paidPerMonth * swFee; // SW provision/mån
 const swTotalMonth = swProvision + licenseFee; // SW total/mån
 const savings = todayCostMonth - swTotalMonth; // lönsamhet/mån
  
 // ── SUMMARY STRIP ──
 document.getElementById('s_today').textContent = fmtKr(todayCostMonth);
-document.getElementById('s_today_sub').textContent = finesPerDay+' kontroller/dag × '+currentFee+' kr × 30';
+document.getElementById('s_today_sub').textContent = finesPerDay+' kontroller/dag × '+currentFee+' kr × 30 + '+fmtKr(compLic)+' licens';
 document.getElementById('s_sw_total').textContent = fmtKr(swTotalMonth);
 document.getElementById('s_sw_sub').textContent = fmtKr(swProvision)+' provision + '+fmtKr(licenseFee)+' licens';
 document.getElementById('s_profit').textContent = fmtKr(savings);
