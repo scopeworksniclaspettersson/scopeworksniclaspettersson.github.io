@@ -52,6 +52,7 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 .icard.comp .slider-fill{background:#ff6450}
 .icard.comp .slider::-webkit-slider-thumb{background:#ff6450}
 .icard label{display:block;font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:8px;line-height:1.4}
+.icard.hi label{color:#ffffff}
 .icard.sw label{color:var(--teal)}
 .icard.lic label{color:#fbbf24}
 .inp-row{display:flex;align-items:center;gap:5px;margin-bottom:7px}
@@ -160,7 +161,7 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 <div class="sec-label">Fyll i era siffror</div>
 <div class="inputs-grid">
  
-<div class="icard">
+<div class="icard hi">
 <label>Kontroller per dag</label>
 <div class="inp-row">
 <input type="number" id="finesPerDay" value="50" min="1" max="9999" oninput="syncSlider(this,'sl_fines');calc()">
@@ -171,7 +172,7 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 </div>
 </div>
  
-<div class="icard">
+<div class="icard hi">
 <label>Betalningsgrad</label>
 <div class="inp-row">
 <input type="number" id="payRate" value="70" min="1" max="100" oninput="syncSlider(this,'sl_pay');calc()">
@@ -182,8 +183,8 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 </div>
 </div>
  
-<div class="icard">
-<label>Er avgift per kontrollavgift</label>
+<div class="icard hi">
+<label>Er intäkt per kontrollavgift</label>
 <div class="inp-row">
 <input type="number" id="currentFee" value="50" min="0" max="500" oninput="syncSlider(this,'sl_fee');calc()">
 <span class="inp-unit">kr</span>
@@ -194,7 +195,7 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 </div>
  
 <div class="icard sw">
-<label>Scopeworks per reglerad avgift</label>
+<label>Scopeworks provision per avgift</label>
 <div class="inp-row">
 <input type="number" id="swFee" value="25" min="1" max="200" oninput="syncSlider(this,'sl_sw');calc()">
 <span class="inp-unit">kr</span>
@@ -205,7 +206,7 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 </div>
  
 <div class="icard lic">
-<label>Licenskostnad / månad</label>
+<label>ScopeGuard / månad</label>
 <div class="inp-row">
 <input type="number" id="licenseFee" value="4997" min="0" max="99999" step="1" oninput="calc()">
 <span class="inp-unit">kr</span>
@@ -216,7 +217,7 @@ body{font-family:var(--font);background:var(--navy);color:var(--text);min-height
 </div>
  
 <div class="icard comp">
-<label>Nuvarande licens / system</label>
+<label>Konkurrentens licenskostnad</label>
 <div class="inp-row">
 <input type="number" id="compLic" value="4997" min="0" max="99999" step="100"
 oninput="syncSlider(this,'sl_complic');calc()">
@@ -244,7 +245,7 @@ oninput="syncNum(this,'compLic');calc()">
 <div class="scard-sub" id="s_sw_sub">Provision + licens</div>
 </div>
 <div class="scard profit">
-<div class="scard-label">Lönsamhet / månad</div>
+<div class="scard-label">Besparing / månad</div>
 <div class="scard-num" id="s_profit">—</div>
 <div class="scard-sub" id="s_profit_sub">Besparing efter Scopeworks</div>
 </div>
@@ -284,17 +285,17 @@ oninput="syncNum(this,'compLic');calc()">
  
 <!-- KOSTNADSBRYTNING -->
 <div class="breakdown">
-<div class="breakdown-title">Scopeworks kostnad — exakt uppdelning per månad</div>
+<div class="breakdown-title">Scopeworks — kostnadsuppdelning</div>
 <div class="breakdown-row">
 <span class="br-name">Reglerade avgifter / månad</span>
 <span class="br-val teal" id="bd_paid">—</span>
 </div>
 <div class="breakdown-row">
-<span class="br-name">Provision (reglerade × SW-avgift)</span>
+<span class="br-name">Provision<br><span style="font-size:11px;font-weight:400;color:rgba(255,255,255,.5);">Antal reglerade avgifter × er Scopeworks-provision per avgift</span></span>
 <span class="br-val teal" id="bd_provision">—</span>
 </div>
 <div class="breakdown-row">
-<span class="br-name">Licenskostnad</span>
+<span class="br-name">ScopeGuard</span>
 <span class="br-val amber" id="bd_licens">—</span>
 </div>
 <div class="breakdown-row" style="margin-top:4px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)">
@@ -311,17 +312,17 @@ oninput="syncNum(this,'compLic');calc()">
 </svg>
 </div>
 <div>
-<div class="be-label">Vad som krävs för att täcka licensen</div>
+<div class="be-label">Hur snabbt betalar sig Scopeworks?</div>
 <div class="be-text" id="be_text">—</div>
 </div>
 </div>
  
 <!-- OUTCOME -->
 <div class="outcome">
-<div class="outcome-label">Lönsamhet per månad</div>
+<div class="outcome-label">Besparing per år</div>
 <div>
 <span class="outcome-num" id="outcome_num">—</span>
-<span class="outcome-period">kr / 30 dagar</span>
+<span class="outcome-period">kr / år</span>
 </div>
 <div class="outcome-divider"></div>
 <div class="outcome-sub" id="outcome_sub">—</div>
@@ -372,7 +373,7 @@ document.getElementById('s_today_sub').textContent = finesPerDay+' kontroller/da
 document.getElementById('s_sw_total').textContent = fmtKr(swTotalMonth);
 document.getElementById('s_sw_sub').textContent = fmtKr(swProvision)+' provision + '+fmtKr(licenseFee)+' licens';
 document.getElementById('s_profit').textContent = fmtKr(savings);
-document.getElementById('s_profit_sub').textContent= savings >= 0 ? 'Besparing efter Scopeworks' : 'Scopeworks kostar mer — justera siffrorna';
+document.getElementById('s_profit_sub').textContent= savings >= 0 ? 'Vad ni sparar varje månad' : 'Scopeworks kostar mer — justera siffrorna';
 document.getElementById('s_profit').style.color = savings >= 0 ? 'var(--green)' : 'var(--red)';
  
 // ── BREAKDOWN ──
@@ -402,11 +403,14 @@ document.getElementById('be_text').innerHTML =
 '<strong>'+daysToBreakEven.toFixed(1)+'</strong> dagars normalt flöde.';
  
 // ── OUTCOME ──
-document.getElementById('outcome_num').textContent = fmtN(savings);
+const savingsYear = savings * 12;
+const savingsDay = savings / 30;
+document.getElementById('outcome_num').textContent = fmtN(savingsYear);
 document.getElementById('outcome_num').style.color = savings >= 0 ? 'var(--teal)' : 'var(--red)';
 document.getElementById('outcome_sub').innerHTML =
-'<div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:12px">' +
-fmtKr(licenseFee) + ' &divide; 30 dagar = <span style="color:var(--teal)">' + fmtN(licPerDay,1) + ' kr fastkostnad/dag</span>' +
+'<div style="font-size:15px;font-weight:700;color:#ffffff;margin-bottom:10px">' +
+'Per månad: ' + fmtKr(savings) + '/mån' +
+' &nbsp;·&nbsp; Per dag: ' + fmtKr(Math.round(savingsDay)) + '/dag' +
 '</div>' +
 'Er kostnad idag: ' + fmtKr(todayCostMonth) +
 ' &nbsp;·&nbsp; Scopeworks totalt: ' + fmtKr(swTotalMonth) +
